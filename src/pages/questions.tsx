@@ -9,18 +9,18 @@ import styled from "styled-components";
 
 export type CorrectAnswer = "True" | "False";
 export type IncorrectAnswer = ["True"] | ["False"];
-export type Question = {
+export type Question = Readonly<{
 	category: string;
 	correct_answer: CorrectAnswer;
 	difficulty: string;
 	incorrect_answers: IncorrectAnswer;
 	question: string;
 	type: string;
-};
-export type QuestionResponse = {
+}>;
+export type QuestionResponse = Readonly<{
 	response_code: number;
 	results: Question[];
-};
+}>;
 export type Answer = "True" | "False";
 
 // ************
@@ -33,6 +33,7 @@ function Questions(): JSX.Element {
 	const [questionNumber, setQuestionNumber] = useState<number>(0);
 	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [answered, setAnswered] = useState<boolean>(false);
+	const [pleaseAnswer, setPleaseAnswer] = useState<boolean>(false);
 	const [finished, setFinished] = useState<boolean>(false);
 
 	// effect calls getQuestions function when component mounts
@@ -62,6 +63,7 @@ function Questions(): JSX.Element {
 		answers.splice(questionNumber, 1, answer);
 		setAnswers(answers);
 		setAnswered(true);
+		setPleaseAnswer(false);
 
 		// console.log("answers:", answers); // ? debug
 	};
@@ -76,7 +78,7 @@ function Questions(): JSX.Element {
 		}
 		// if no answer, prompt for answer
 		else {
-			console.log("please answer question"); // TODO: make a component
+			setPleaseAnswer(true);
 		}
 	};
 
@@ -110,6 +112,7 @@ function Questions(): JSX.Element {
 							<button onClick={() => nextQuestion()}>NEXT</button>
 						)}
 					</div>
+					{pleaseAnswer && <div>Please answer the question</div>}
 				</>
 			)}
 		</>
