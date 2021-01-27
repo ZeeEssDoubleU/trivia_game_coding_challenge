@@ -22,24 +22,28 @@ type QuestionResponse = {
 	results: Question[];
 };
 type Answer = "True" | "False";
-type Answers = Answer[];
 
 // ************
 // component
 // ************
 
 function Questions(): JSX.Element {
-	// questions state
+	const [loading, setLoading] = useState<boolean>(true);
 	const [questions, setQuestions] = useState<Question[]>([]);
-	// // loading state
-	const [loading, setLoading]: [
-		boolean,
-		(loading: boolean) => void,
-	] = useState<boolean>(true);
+	const [questionNumber, setQuestionNumber] = useState<number>(0);
+	const [answers, setAnswers] = useState<Answer[]>([]);
+	const [answered, setAnswered] = useState<boolean>(false);
+	const [finished, setFinished] = useState<boolean>(false);
 
+	// effect calls getQuestions function when component mounts
 	useEffect(() => {
 		getQuestions();
 	}, []);
+
+	// effect sets finished state to true if answers and questions arrays are the same length
+	useEffect(() => {
+		setFinished(answers.length === questions.length);
+	}, [answered, questions]);
 
 	// function fetches new questions from API
 	const getQuestions = async () => {
@@ -47,15 +51,69 @@ function Questions(): JSX.Element {
 			"https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean",
 		);
 		const questions = response.data.results;
-
-		console.log("questions:", questions); // debug
+		// console.log("questions:", questions); // ? debug
 
 		setQuestions(questions);
 		setLoading(false);
 	};
 
-	// TODO: Loading and Questions placeholder
-	return <>{loading ? "Loading..." : "Questions"}</>;
+	// function updates answers array (to compare against questions array)
+	const updateAnswers = (answer: Answer) => {
+		answers.splice(questionNumber, 1, answer);
+		setAnswers(answers);
+		setAnswered(true);
+
+		// console.log("answers:", answers); // ? debug
+	};
+
+	// function moves onto next question
+	const nextQuestion = () => {
+		// check if answer saved
+		// if answered, increment counter and move onto next question
+		if (answered) {
+			setQuestionNumber(questionNumber + 1);
+			setAnswered(false);
+		}
+		// if no answer, prompt for answer
+		else {
+			console.log("please answer question"); // TODO: make a component
+		}
+	};
+
+	return (
+		<>
+			{loading ? (
+				"Loading..."
+			) : (
+				<>
+					<h2>{questions[questionNumber].category}</h2>
+					<div
+						// TODO: consider using DOMPurify here
+						dangerouslySetInnerHTML={{
+							__html: questions[questionNumber].question,
+						}}
+					></div>
+					<div>
+						Question {questionNumber + 1} of {questions.length}
+					</div>
+					<button onClick={() => updateAnswers("True")}>TRUE</button>
+					<button onClick={() => updateAnswers("False")}>FALSE</button>
+					<div>
+						{/* check if finished */}
+						{finished ? (
+							// display finished button
+							<Link to="/results" state={{ questions, answers }}>
+								FINISH
+							</Link>
+						) : (
+							// display next button
+							<button onClick={() => nextQuestion()}>NEXT</button>
+						)}
+					</div>
+				</>
+			)}
+		</>
+	);
 }
 
 export default Questions;
