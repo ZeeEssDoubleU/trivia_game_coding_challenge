@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "gatsby";
+import styled from "styled-components";
 
 // ************
 // component
 // ************
 
-const Index: React.FC = () => {
+function Index(): JSX.Element {
 	return (
 		<>
 			<div>Welcome to the Trivia Challenge</div>
@@ -14,7 +15,7 @@ const Index: React.FC = () => {
 			<Link to="/questions">BEGIN</Link>
 		</>
 	);
-};
+}
 
 export default Index;
 
