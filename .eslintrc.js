@@ -7,7 +7,7 @@ module.exports = {
 			jsx: true,
 		},
 	},
-	plugins: ["@typescript-eslint", "react", "jsx-a11y"],
+	plugins: ["@typescript-eslint", "react"],
 	env: {
 		browser: true,
 		node: true,
@@ -16,7 +16,6 @@ module.exports = {
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended",
-		"plugin:jsx-a11y/recommended",
 		"prettier",
 		"prettier/react",
 		"prettier/@typescript-eslint",
@@ -28,5 +27,7 @@ module.exports = {
 	},
 	rules: {
 		"react/prop-types": "off",
+		// "@typescript-eslint/explicit-function-return-type": "off",
+		// "@typescript-eslint/explicit-module-boundary-types": "off",
 	},
 };
