@@ -25,9 +25,9 @@ interface ResultsProps {
 function Results({ location }: ResultsProps): JSX.Element {
 	const [score, setScore] = useState<number>(0);
 	const [questions, setQuestions] = useState<Question[]>(
-		location.state.questions,
+		location.state?.questions,
 	);
-	const [answers, setAnswers] = useState<Answer[]>(location.state.answers);
+	const [answers, setAnswers] = useState<Answer[]>(location.state?.answers);
 
 	// effect calculates score when components mounts
 	useEffect(() => {
@@ -40,7 +40,7 @@ function Results({ location }: ResultsProps): JSX.Element {
 		let recordScore = 0;
 
 		// loop through questions (and answers)
-		questions.forEach((question: Question, index: number) => {
+		questions?.forEach((question: Question, index: number) => {
 			const answer = answers[index];
 
 			if (question.correct_answer === answer) recordScore++;
@@ -50,7 +50,7 @@ function Results({ location }: ResultsProps): JSX.Element {
 	};
 
 	// variable displays list of questions
-	const displayQuestions = questions.map(
+	const displayQuestions = questions?.map(
 		(question: Question, index: number) => {
 			const answer = answers[index];
 			const correct = question.correct_answer === answer;
@@ -82,7 +82,7 @@ function Results({ location }: ResultsProps): JSX.Element {
 				<Header>
 					<div>You scored</div>
 					<div>
-						{score} / {questions.length}
+						{score} / {questions?.length}
 					</div>
 				</Header>
 
