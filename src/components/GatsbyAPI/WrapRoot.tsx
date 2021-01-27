@@ -6,12 +6,16 @@ import ResetStyle from "../../styles/reset";
 import { theme } from "../../styles/theme";
 
 // ************
-// component
+// types
 // ************
 
 interface RootProps {
 	element: React.ReactNode;
 }
+
+// ************
+// component
+// ************
 
 function WrapRoot({ element }: RootProps): JSX.Element {
 	return (

@@ -1,6 +1,6 @@
 import React from "react";
-import { Link } from "gatsby";
-import styled from "styled-components";
+// import styles
+import { Grid, Header, Page, StyledLink } from "../styles/elements";
 
 // ************
 // component
@@ -8,12 +8,17 @@ import styled from "styled-components";
 
 function Index(): JSX.Element {
 	return (
-		<>
-			<div>Welcome to the Trivia Challenge</div>
-			<div>You will be presented with 10 True or False questions</div>
-			<div>Can you score 100%?</div>
-			<Link to="/questions">BEGIN</Link>
-		</>
+		<Page>
+			<Grid>
+				<Header>Welcome to the Trivia Challenge</Header>
+				<div>
+					You will be presented with 10 <strong>True</strong> or{" "}
+					<strong>False</strong> questions
+				</div>
+				<div>Can you score 100%?</div>
+				<StyledLink to="/questions">BEGIN</StyledLink>
+			</Grid>
+		</Page>
 	);
 }
 

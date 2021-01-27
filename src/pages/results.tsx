@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "gatsby";
+import styled from "styled-components";
 import { Question, Answer } from "./questions";
+// import styles
+import { Grid, Header, Page, StyledLink } from "../styles/elements";
 
 // ************
 // types
@@ -54,33 +56,40 @@ function Results({ location }: ResultsProps): JSX.Element {
 			const correct = question.correct_answer === answer;
 
 			return (
-				<>
+				<Cell key={index}>
 					{/* displays 'check' next to question if correct, displays 'ex' next to question if incorrect */}
 					{correct ? <div>&#10003;</div> : <div>&#10007;</div>}
-					<div
-						// TODO: consider using DOMPurify here
-						dangerouslySetInnerHTML={{
-							__html: question.question,
-						}}
-					></div>
-					{/* correct answer displayed below each question */}
-					<div>Answer: {question.correct_answer}</div>
-				</>
+					<div>
+						<div
+							// TODO: consider using DOMPurify here
+							dangerouslySetInnerHTML={{
+								__html: question.question,
+							}}
+						></div>
+						{/* correct answer displayed below each question */}
+						<AnswerDiv>
+							<strong>Answer: {question.correct_answer}</strong>
+						</AnswerDiv>
+					</div>
+				</Cell>
 			);
 		},
 	);
 
 	return (
-		<>
-			<div>You scored</div>
-			<div>
-				{score} / {questions.length}
-			</div>
+		<StyledPage>
+			<Grid>
+				<Header>
+					<div>You scored</div>
+					<div>
+						{score} / {questions.length}
+					</div>
+				</Header>
 
-			<div>{displayQuestions}</div>
-
-			<Link to="/">PLAY AGAIN?</Link>
-		</>
+				<div>{displayQuestions}</div>
+				<StyledLink to="/">PLAY AGAIN?</StyledLink>
+			</Grid>
+		</StyledPage>
 	);
 }
 
@@ -89,3 +98,16 @@ export default Results;
 // ************
 // styles
 // ************
+
+const Cell = styled.div`
+	display: grid;
+	grid-gap: 0.5em;
+	grid-template-columns: auto 1fr;
+	padding: 0.5em;
+`;
+const AnswerDiv = styled.div`
+	padding-top: 0.25em;
+`;
+const StyledPage = styled(Page)`
+	height: 100%;
+`;

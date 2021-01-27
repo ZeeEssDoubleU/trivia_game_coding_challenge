@@ -1,7 +1,7 @@
 // import original module declarations
 import "styled-components";
 
-// and extend them!
+// and extend theme!
 declare module "styled-components" {
 	export interface DefaultTheme {
 		borderRadius: string;
@@ -9,6 +9,7 @@ declare module "styled-components" {
 		colors: {
 			main: string;
 			secondary: string;
+			ricky: string;
 		};
 	}
 }

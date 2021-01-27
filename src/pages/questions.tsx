@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "gatsby";
 import styled from "styled-components";
+// import styles
+import {
+	Grid,
+	Header,
+	Page,
+	StyledLink,
+	StyledButton,
+	StyledButtonLink,
+} from "../styles/elements";
 
 // ************
 // types
@@ -33,6 +41,7 @@ function Questions(): JSX.Element {
 	const [questionNumber, setQuestionNumber] = useState<number>(0);
 	const [answers, setAnswers] = useState<Answer[]>([]);
 	const [answered, setAnswered] = useState<boolean>(false);
+	const [currentAnswer, setCurrentAnswer] = useState<string>();
 	const [pleaseAnswer, setPleaseAnswer] = useState<boolean>(false);
 	const [finished, setFinished] = useState<boolean>(false);
 
@@ -62,6 +71,7 @@ function Questions(): JSX.Element {
 	const updateAnswers = (answer: Answer) => {
 		answers.splice(questionNumber, 1, answer);
 		setAnswers(answers);
+		setCurrentAnswer(answer);
 		setAnswered(true);
 		setPleaseAnswer(false);
 
@@ -83,12 +93,12 @@ function Questions(): JSX.Element {
 	};
 
 	return (
-		<>
+		<Page>
 			{loading ? (
 				"Loading..."
 			) : (
-				<>
-					<h2>{questions[questionNumber].category}</h2>
+				<Grid>
+					<Header>{questions[questionNumber].category}</Header>
 					<div
 						// TODO: consider using DOMPurify here
 						dangerouslySetInnerHTML={{
@@ -98,24 +108,35 @@ function Questions(): JSX.Element {
 					<div>
 						Question {questionNumber + 1} of {questions.length}
 					</div>
-					<button onClick={() => updateAnswers("True")}>TRUE</button>
-					<button onClick={() => updateAnswers("False")}>FALSE</button>
+					<div>
+						<StyledButton onClick={() => updateAnswers("True")}>
+							TRUE
+						</StyledButton>
+						<StyledButton onClick={() => updateAnswers("False")}>
+							FALSE
+						</StyledButton>
+					</div>
 					<div>
 						{/* check if finished */}
 						{finished ? (
 							// display finished button
-							<Link to="/results" state={{ questions, answers }}>
+							<StyledLink to="/results" state={{ questions, answers }}>
 								FINISH
-							</Link>
+							</StyledLink>
 						) : (
 							// display next button
-							<button onClick={() => nextQuestion()}>NEXT</button>
+							<StyledButtonLink onClick={() => nextQuestion()}>
+								NEXT
+							</StyledButtonLink>
 						)}
 					</div>
-					{pleaseAnswer && <div>Please answer the question</div>}
-				</>
+				</Grid>
 			)}
-		</>
+			{pleaseAnswer && (
+				<FootNote>*** Please answer the question ***</FootNote>
+			)}
+			{answered && <FootNote>Answered: {currentAnswer}</FootNote>}
+		</Page>
 	);
 }
 
@@ -124,3 +145,8 @@ export default Questions;
 // ************
 // styles
 // ************
+
+const FootNote = styled.div`
+	margin: 0 auto;
+	text-align: center;
+`;
