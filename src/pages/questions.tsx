@@ -7,9 +7,9 @@ import styled from "styled-components";
 // types
 // ************
 
-type CorrectAnswer = "True" | "False";
-type IncorrectAnswer = ["True"] | ["False"];
-type Question = {
+export type CorrectAnswer = "True" | "False";
+export type IncorrectAnswer = ["True"] | ["False"];
+export type Question = {
 	category: string;
 	correct_answer: CorrectAnswer;
 	difficulty: string;
@@ -17,11 +17,11 @@ type Question = {
 	question: string;
 	type: string;
 };
-type QuestionResponse = {
+export type QuestionResponse = {
 	response_code: number;
 	results: Question[];
 };
-type Answer = "True" | "False";
+export type Answer = "True" | "False";
 
 // ************
 // component
