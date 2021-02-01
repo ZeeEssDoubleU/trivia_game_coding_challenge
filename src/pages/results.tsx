@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { PageProps } from "gatsby";
 import styled from "styled-components";
 import { Question, Answer } from "./questions";
 // import styles
@@ -8,7 +9,7 @@ import { Grid, Header, Page, StyledLink } from "../styles/elements";
 // types
 // ************
 
-interface ResultsProps {
+type ResultsProps = {
 	location: {
 		state: {
 			key: number;
@@ -16,13 +17,14 @@ interface ResultsProps {
 			answers: Answer[];
 		};
 	};
-}
+};
 
 // ************
 // component
 // ************
 
-function Results({ location }: ResultsProps): JSX.Element {
+// TODO: need to correct component type declaration
+const Results: React.FC<ResultsProps> = ({ location }: ResultsProps) => {
 	const [score, setScore] = useState<number>(0);
 	const [questions, setQuestions] = useState<Question[]>(
 		location.state?.questions,
@@ -91,7 +93,7 @@ function Results({ location }: ResultsProps): JSX.Element {
 			</Grid>
 		</StyledPage>
 	);
-}
+};
 
 export default Results;
 

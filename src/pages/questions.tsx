@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { PageProps } from "gatsby";
 import axios from "axios";
 import styled from "styled-components";
 // import styles
@@ -35,7 +36,7 @@ export type Answer = "True" | "False";
 // component
 // ************
 
-function Questions(): JSX.Element {
+const Questions: React.FC<PageProps> = () => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [questionNumber, setQuestionNumber] = useState<number>(0);
@@ -138,7 +139,7 @@ function Questions(): JSX.Element {
 			{answered && <FootNote>Answered: {currentAnswer}</FootNote>}
 		</Page>
 	);
-}
+};
 
 export default Questions;
 

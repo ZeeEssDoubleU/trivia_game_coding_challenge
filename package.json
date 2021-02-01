@@ -8,7 +8,7 @@
 		"gatsby"
 	],
 	"scripts": {
-		"dev": "npm run test && gatsby develop",
+		"dev": "concurrently 'npm run develop' 'npm run test'",
 		"develop": "gatsby develop",
 		"start": "gatsby develop",
 		"build": "gatsby build",
@@ -16,11 +16,12 @@
 		"clean": "gatsby clean",
 		"test": "npm run type-check && npm run lint",
 		"lint": "eslint . --ext .ts,.tsx",
-		"type-check": "tsc --pretty"
+		"type-check": "tsc --watch"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
 		"babel-plugin-styled-components": "^1.12.0",
+		"concurrently": "^5.3.0",
 		"gatsby": "^2.26.1",
 		"gatsby-image": "^2.10.0",
 		"gatsby-plugin-manifest": "^2.11.0",

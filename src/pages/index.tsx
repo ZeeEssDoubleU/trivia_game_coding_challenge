@@ -1,4 +1,5 @@
 import React from "react";
+import { PageProps } from "gatsby";
 // import styles
 import { Grid, Header, Page, StyledLink } from "../styles/elements";
 
@@ -6,7 +7,7 @@ import { Grid, Header, Page, StyledLink } from "../styles/elements";
 // component
 // ************
 
-function Index(): JSX.Element {
+const Index: React.FC<PageProps> = () => {
 	return (
 		<Page>
 			<Grid>
@@ -20,7 +21,7 @@ function Index(): JSX.Element {
 			</Grid>
 		</Page>
 	);
-}
+};
 
 export default Index;
 

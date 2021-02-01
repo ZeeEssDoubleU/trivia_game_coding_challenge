@@ -1,4 +1,5 @@
 import React from "react";
+import { PageProps } from "gatsby";
 // import providers
 import { ThemeProvider } from "styled-components";
 // import styles
@@ -6,23 +7,15 @@ import ResetStyle from "../../styles/reset";
 import { theme } from "../../styles/theme";
 
 // ************
-// types
-// ************
-
-interface RootProps {
-	element: React.ReactNode;
-}
-
-// ************
 // component
 // ************
 
-function WrapRoot({ element }: RootProps): JSX.Element {
+const WrapRoot: React.FC = ({ children }) => {
 	return (
 		<ThemeProvider theme={theme}>
 			<ResetStyle />
-			{element}
+			{children}
 		</ThemeProvider>
 	);
-}
+};
 export default WrapRoot;
