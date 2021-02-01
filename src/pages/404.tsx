@@ -8,10 +8,10 @@ import styled from "styled-components";
 
 const NotFoundPage: React.FC<PageProps> = () => {
 	return (
-		<main style={pageStyles}>
+		<Main>
 			<title>Not found</title>
-			<h1 style={headingStyles}>Page not found</h1>
-			<p style={paragraphStyles}>
+			<Heading>Page not found</Heading>
+			<Paragraph>
 				Sorry{" "}
 				<span role="img" aria-label="Pensive emoji">
 					😔
@@ -21,15 +21,14 @@ const NotFoundPage: React.FC<PageProps> = () => {
 				{process.env.NODE_ENV === "development" ? (
 					<>
 						<br />
-						Try creating a page in{" "}
-						<code style={codeStyles}>src/pages/</code>.
+						Try creating a page in <Code>src/pages/</Code>.
 						<br />
 					</>
 				) : null}
 				<br />
 				<Link to="/">Go home</Link>.
-			</p>
-		</main>
+			</Paragraph>
+		</Main>
 	);
 };
 
@@ -39,23 +38,23 @@ export default NotFoundPage;
 // styles
 // ************
 
-const pageStyles = {
-	color: "#232129",
-	padding: "96px",
-	fontFamily: "-apple-system, Roboto, sans-serif, serif",
-};
-const headingStyles = {
-	marginTop: 0,
-	marginBottom: 64,
-	maxWidth: 320,
-};
-const paragraphStyles = {
-	marginBottom: 48,
-};
-const codeStyles = {
-	color: "#8A6534",
-	padding: 4,
-	backgroundColor: "#FFF4DB",
-	fontSize: "1.25rem",
-	borderRadius: 4,
-};
+const Main = styled.main`
+	color: #232129;
+	padding: 96px;
+	font-family: "-apple-system, Roboto, sans-serif, serif";
+`;
+const Heading = styled.h1`
+	margin-top: 0;
+	margin-bottom: 64;
+	max-width: 320;
+`;
+const Paragraph = styled.p`
+	margin-bottom: 48;
+`;
+const Code = styled.code`
+	color: #8a6534;
+	padding: 4;
+	background-color: #fff4db;
+	font-size: 1.25rem;
+	border-radius: 4;
+`;
